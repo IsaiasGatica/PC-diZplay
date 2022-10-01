@@ -12,12 +12,6 @@ Adafruit_APDS9960 apds;
 TFT_eSPI tft = TFT_eSPI();
 
 
-// uint8_t Pantalla;
-
-// #define Gputemp  1
-// #define Gpuload  2
-
-
 enum Menus {
 
   Gputemp,
@@ -31,7 +25,8 @@ enum Menus {
 
 uint8_t Pantalla=Gputemp;
 uint8_t Pantalla0;
-
+uint8_t GputempSerial;
+ 
 
 void setup()
 {
@@ -41,9 +36,10 @@ void setup()
   tft.setFreeFont(&Orbitron_Medium_27);
   tft.setTextColor(TFT_WHITE, TFT_BLACK);
   tft.setTextSize(1);
-  tft.drawString("GPU:48C", 0, 25);
+  tft.drawString("GPU:", 0, 25);
 
   Serial.begin(115200);
+
 
   if (!apds.begin())
   {
@@ -59,24 +55,32 @@ void setup()
 
 void drawtext(const char *text, int posx, int posy)
 {
-   tft.fillScreen(TFT_BLACK);
-  
+  tft.fillScreen(TFT_BLACK);
   tft.setTextColor(TFT_WHITE, TFT_BLACK);
   tft.drawString(text, posx, posy);
+
 }
+
+void drawvalor(uint8_t valor){
+
+  tft.setTextSize(1);
+  tft.drawString(String(valor), 70, 20,7);
+
+}
+
 
 
 void CambioPantalla(){
    switch (Pantalla){
 
     case Gputemp:
-      drawtext("GPU:35C", 0, 25);
+      drawtext("GPU:", 0, 25);
       break;
     case Gpuload:
       drawtext("GPU:38%", 0, 25);
       break;
     case Cputemp:
-      drawtext("CPU:35C", 0, 25);
+      drawtext("CPU:", 0, 25);
       break;
     case Cpuload:
       drawtext("CPU:35%", 0, 25);
@@ -91,7 +95,7 @@ void CambioPantalla(){
 
     break;
 
-}
+  }
 }
 
 void loop()
@@ -104,7 +108,7 @@ void loop()
   switch (gesture)
   {
     case APDS9960_UP:
-     Serial.println("^");
+      Serial.println("^");
       if (Pantalla==Gputemp){
         Pantalla = Gpuload;
       }
@@ -117,7 +121,7 @@ void loop()
       break;
     
     case APDS9960_DOWN:
-    Serial.println("v");
+      Serial.println("v");
 
       if (Pantalla==Gpuload){
         Pantalla = Gputemp;
@@ -130,7 +134,7 @@ void loop()
       }
       break;
     case APDS9960_RIGHT:
-    Serial.println(">");
+      Serial.println(">");
       if (Pantalla==Gputemp ||Pantalla== Gpuload){
         Pantalla = Cputemp;
       }
@@ -161,6 +165,32 @@ void loop()
   if (Pantalla!=Pantalla0){
     CambioPantalla();
   }
+
+
+  switch (Pantalla){
+
+    case Gputemp:
+      GputempSerial=45;
+      drawvalor(GputempSerial);
+      break;
+    case Gpuload:
+      break;
+    case Cputemp:
+      break;
+    case Cpuload:
+      break;
+    case RAM:
+      break;
+    case Gpufan:
+      
+      break;
+    default:
+
+    break;
+
+  }
+
+   
 
 }
 
