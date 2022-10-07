@@ -1,3 +1,10 @@
+//!07/10/2022
+//! Con la libreria de adafruit el sensor interrupte por proximidad cuando el sensor de gestos esta
+//!deshabilitado. Se probó rapidamente una rutina de habilitar los gestos recien cuando se interrumpe pero
+//!no se logro leer los gestos. Antes de seguir probando con esta liberia se va probar la de sparkfun.
+
+
+
 #include <Arduino.h>
 #include <Wire.h>
 #include <TFT_eSPI.h>
@@ -7,7 +14,13 @@
 #include <Gpu3.h>
 #include <Adafruit_APDS9960.h>
 
+
+
 Adafruit_APDS9960 apds;
+
+volatile int isr_flag = 0;
+
+#define APDS9960_INT D6
 
 TFT_eSPI tft = TFT_eSPI();
 
@@ -28,6 +41,11 @@ uint8_t Pantalla0;
 uint8_t GputempSerial;
  
 
+void IRAM_ATTR isr() {
+  isr_flag = 1;
+}
+
+
 void setup()
 {
   tft.init();
@@ -41,6 +59,14 @@ void setup()
   Serial.begin(115200);
 
 
+  pinMode(APDS9960_INT,INPUT_PULLUP);
+
+
+
+  attachInterrupt(APDS9960_INT, isr, FALLING);
+
+
+
   if (!apds.begin())
   {
     Serial.println("failed to initialize device! Please check your wiring.");
@@ -50,7 +76,10 @@ void setup()
 
   // gesture mode will be entered once proximity mode senses something close
   apds.enableProximity(true);
-  apds.enableGesture(true);
+  
+  //apds.setProximityInterruptThreshold(0, 175);
+  apds.enableProximityInterrupt();
+  
 }
 
 void drawtext(const char *text, int posx, int posy)
@@ -100,67 +129,84 @@ void CambioPantalla(){
 
 void loop()
 {
-  // read a gesture from the device
-  uint8_t gesture = apds.readGesture();
 
-  Pantalla0=Pantalla;
-  
-  switch (gesture)
-  {
-    case APDS9960_UP:
-      Serial.println("^");
-      if (Pantalla==Gputemp){
-        Pantalla = Gpuload;
-      }
-      else if (Pantalla==Cputemp){
-        Pantalla = Cpuload;
-      }
-      else if (Pantalla==Gpufan){
-        Pantalla = Gputemp;
-      }
-      break;
+  if( isr_flag == 1 ) { 
+     
+    detachInterrupt(APDS9960_INT);        // Stop listening for interrupt
+    apds.enableGesture(true);
+    uint8_t gesture = apds.readGesture();
+    Serial.println("INT");
+    Serial.println(gesture);           // grab gesture
+    isr_flag = 0;        // reset interrupt flag to zero
+    attachInterrupt(APDS9960_INT, isr, FALLING);  // Start listening again
+    apds.readProximity();
+    apds.clearInterrupt();
+    apds.enableGesture(false);
     
-    case APDS9960_DOWN:
-      Serial.println("v");
-
-      if (Pantalla==Gpuload){
-        Pantalla = Gputemp;
-      }
-      else if (Pantalla == Gputemp){
-        Pantalla = Gpufan;
-      }
-      else if (Pantalla == Cpuload){
-        Pantalla = Cputemp;
-      }
-      break;
-    case APDS9960_RIGHT:
-      Serial.println(">");
-      if (Pantalla==Gputemp ||Pantalla== Gpuload){
-        Pantalla = Cputemp;
-      }
-      else if (Pantalla==Cputemp || Pantalla== Cpuload){
-        Pantalla = RAM;
-      }
-      else if (Pantalla==RAM){
-        Pantalla = Gputemp;
-      }
-      break;
-    case APDS9960_LEFT:
-      Serial.println("<");
-      if (Pantalla==Gputemp || Pantalla== Gpuload){
-        Pantalla = RAM;
-      }
-      else if (Pantalla==Cputemp || Pantalla== Cpuload){
-        Pantalla = Gputemp;
-      }
-      else if (Pantalla==RAM){
-        Pantalla = Cputemp;
-      }
-      break;
-    default:
-      
-      break;
   }
+
+  // read a gesture from the device
+   
+  // uint8_t gesture = apds.readGesture();
+
+  // Pantalla0=Pantalla;
+  
+  // switch (gesture)
+  // {
+  //   case APDS9960_UP:
+  //     Serial.println("^");
+  //     if (Pantalla==Gputemp){
+  //       Pantalla = Gpuload;
+  //     }
+  //     else if (Pantalla==Cputemp){
+  //       Pantalla = Cpuload;
+  //     }
+  //     else if (Pantalla==Gpufan){
+  //       Pantalla = Gputemp;
+  //     }
+  //     break;
+    
+  //   case APDS9960_DOWN:
+  //     Serial.println("v");
+
+  //     if (Pantalla==Gpuload){
+  //       Pantalla = Gputemp;
+  //     }
+  //     else if (Pantalla == Gputemp){
+  //       Pantalla = Gpufan;
+  //     }
+  //     else if (Pantalla == Cpuload){
+  //       Pantalla = Cputemp;
+  //     }
+  //     break;
+  //   case APDS9960_RIGHT:
+  //     Serial.println(">");
+  //     if (Pantalla==Gputemp ||Pantalla== Gpuload){
+  //       Pantalla = Cputemp;
+  //     }
+  //     else if (Pantalla==Cputemp || Pantalla== Cpuload){
+  //       Pantalla = RAM;
+  //     }
+  //     else if (Pantalla==RAM){
+  //       Pantalla = Gputemp;
+  //     }
+  //     break;
+  //   case APDS9960_LEFT:
+  //     Serial.println("<");
+  //     if (Pantalla==Gputemp || Pantalla== Gpuload){
+  //       Pantalla = RAM;
+  //     }
+  //     else if (Pantalla==Cputemp || Pantalla== Cpuload){
+  //       Pantalla = Gputemp;
+  //     }
+  //     else if (Pantalla==RAM){
+  //       Pantalla = Cputemp;
+  //     }
+  //     break;
+  //   default:
+      
+  //     break;
+  // }
 
   if (Pantalla!=Pantalla0){
     CambioPantalla();
