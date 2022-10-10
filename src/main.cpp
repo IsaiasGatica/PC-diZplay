@@ -4,7 +4,7 @@
 * temperatura y su función correspondiente para visualizar en la pantalla.
 * Se utilizó la siguiente libreria para el sensor de gestos:
 * https://github.com/Dgemily/APDS-9960_Gesture_Sensor_esp8266_Library.git
-* ! Importante: Se agregó un capacitor de 220uf en la alimentación.
+* Importante: Se agregó un capacitor de 220uf en la alimentación.
 
 */
 
@@ -23,7 +23,7 @@ void IRAM_ATTR interruptRoutine() {
 
 void setup()
 {
-  Serial.begin(115200);
+  
   Wire.begin(APDS9960_SDA,APDS9960_SCL);
 
   startupST7735();
@@ -32,7 +32,7 @@ void setup()
   pinMode(digitalPinToInterrupt(APDS9960_INT), INPUT);
   attachInterrupt(digitalPinToInterrupt(APDS9960_INT), interruptRoutine, FALLING);
 
-  
+  Serial.begin(115200);
 }
 
 void drawtext(const char *text, int posx, int posy)
@@ -44,7 +44,7 @@ void drawtext(const char *text, int posx, int posy)
 }
 
 void drawvalor(uint8_t valor){
-
+  
   tft.setTextSize(1);
   tft.drawString(String(valor), 85, 20,7);
 
@@ -78,35 +78,6 @@ void CambioPantalla(){
   }
 }
 
-void handleGesture() {
-    if ( apds.isGestureAvailable() ) {
-    switch ( apds.readGesture() ) {
-      case DIR_UP:
-        Serial.println("^");
-        if (Pantalla==Gputemp){
-          Pantalla = Gpuload;
-        }
-        break;
-      case DIR_DOWN:
-        Serial.println("DOWN");
-        break;
-      case DIR_LEFT:
-        Serial.println("LEFT");
-        break;
-      case DIR_RIGHT:
-        Serial.println("RIGHT");
-        break;
-      case DIR_NEAR:
-        Serial.println("NEAR");
-        break;
-      case DIR_FAR:
-        Serial.println("FAR");
-        break;
-      default:
-        Serial.println("NONE");
-    }
-  }
-}
 
 void gestos(){
   if ( apds.isGestureAvailable() ) 
@@ -114,7 +85,7 @@ void gestos(){
     switch (apds.readGesture())
       {
         case DIR_UP:
-          Serial.println("^");
+          // Serial.println("^");
           if (Pantalla==Gputemp){
             Pantalla = Gpuload;
           }
@@ -127,7 +98,7 @@ void gestos(){
           break;
         
         case DIR_DOWN:
-          Serial.println("v");
+          // Serial.println("v");
 
           if (Pantalla==Gpuload){
             Pantalla = Gputemp;
@@ -140,7 +111,7 @@ void gestos(){
           }
           break;
         case DIR_RIGHT:
-          Serial.println(">");
+          // Serial.println(">");
           if (Pantalla==Gputemp ||Pantalla== Gpuload){
             Pantalla = Cputemp;
           }
@@ -152,7 +123,7 @@ void gestos(){
           }
           break;
         case DIR_LEFT:
-          Serial.println("<");
+          // Serial.println("<");
           if (Pantalla==Gputemp || Pantalla== Gpuload){
             Pantalla = RAM;
           }
@@ -173,15 +144,20 @@ void loop()
 {
 if( isr_flag == 1 ) {
     detachInterrupt(digitalPinToInterrupt(APDS9960_INT));
-    Pantalla0=Pantalla;
     gestos();
     CambioPantalla();
     isr_flag = 0;
     attachInterrupt(digitalPinToInterrupt(APDS9960_INT), interruptRoutine, FALLING);
   }
 
-      GputempSerial=45;
-      drawvalor(GputempSerial);
+
+if (Serial.available()>0){
+    GputempSerial= Serial.parseInt();
+    
+  }
+  
+    drawvalor(GputempSerial);
+  
 
 
 

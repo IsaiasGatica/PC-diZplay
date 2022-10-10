@@ -15,15 +15,15 @@ void startupAPDS(){
   
 
   if ( apds.init() ) {
-    Serial.println(F("APDS-9960 initialization complete"));
+    // Serial.println(F("APDS-9960 initialization complete"));
   } else {
-    Serial.println(F("Something went wrong during APDS-9960 init!"));
+    // Serial.println(F("Something went wrong during APDS-9960 init!"));
   }
   
   // Start running the APDS-9960 gesture sensor engine
   if ( apds.enableGestureSensor(true) ) {
-    Serial.println(F("Gesture sensor is now running"));
+    // Serial.println(F("Gesture sensor is now running"));
   } else {
-    Serial.println(F("Something went wrong during gesture sensor init!"));
+    // Serial.println(F("Something went wrong during gesture sensor init!"));
   }
 }
