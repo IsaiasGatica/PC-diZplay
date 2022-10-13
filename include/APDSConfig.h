@@ -3,7 +3,7 @@
 #define APDS9960_SDA    4  //GPIO4 (D2)
 #define APDS9960_SCL    5  //GPIO5 (D1)
 
-const byte APDS9960_INT  = 12; //GPIO12 (D6)
+const byte APDS_INT  = 12; //GPIO12 (D6)
 volatile bool isr_flag = 0;
 
 
@@ -26,4 +26,6 @@ void startupAPDS(){
   } else {
     // Serial.println(F("Something went wrong during gesture sensor init!"));
   }
+
+  apds.setGestureGain(2);
 }

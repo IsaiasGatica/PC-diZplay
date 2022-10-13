@@ -29,24 +29,29 @@ void setup()
   startupST7735();
   startupAPDS();
 
-  pinMode(digitalPinToInterrupt(APDS9960_INT), INPUT);
-  attachInterrupt(digitalPinToInterrupt(APDS9960_INT), interruptRoutine, FALLING);
+  pinMode(digitalPinToInterrupt(APDS_INT), INPUT);
+  attachInterrupt(digitalPinToInterrupt(APDS_INT), interruptRoutine, FALLING);
 
   Serial.begin(115200);
 }
 
 void drawtext(const char *text, int posx, int posy)
 {
-  tft.fillScreen(TFT_BLACK);
-  tft.setTextColor(TFT_WHITE, TFT_BLACK);
-  tft.drawString(text, posx, posy);
+  img.fillScreen(TFT_BLACK);
+  img.setTextColor(TFT_WHITE, TFT_BLACK);
+  img.drawString(text, posx, posy);
+  img.pushSprite(0,0);
+
 
 }
 
 void drawvalor(uint8_t valor){
   
-  tft.setTextSize(1);
-  tft.drawString(String(valor), 85, 20,7);
+  img2.fillScreen(TFT_BLACK);
+  img2.setTextSize(1);
+  img2.drawString(String(valor), 0, 20,7);
+  img2.pushSprite(80,0);
+
 
 }
 
@@ -143,11 +148,11 @@ void gestos(){
 void loop()
 {
 if( isr_flag == 1 ) {
-    detachInterrupt(digitalPinToInterrupt(APDS9960_INT));
+    detachInterrupt(digitalPinToInterrupt(APDS_INT));
     gestos();
     CambioPantalla();
     isr_flag = 0;
-    attachInterrupt(digitalPinToInterrupt(APDS9960_INT), interruptRoutine, FALLING);
+    attachInterrupt(digitalPinToInterrupt(APDS_INT), interruptRoutine, FALLING);
   }
 
 
@@ -157,7 +162,6 @@ if (Serial.available()>0){
   }
   
     drawvalor(GputempSerial);
-  
 
 
 

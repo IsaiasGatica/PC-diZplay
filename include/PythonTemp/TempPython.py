@@ -11,6 +11,6 @@ for i in range (0,20):
         if (sensor.SensorType==u'Temperature' and sensor.Name==u'CPU Package'):
                 print(sensor.Name)
                 print(sensor.Value)
-                time.sleep(2)
+                time.sleep(1)
                 Temp= int(sensor.Value)
                 arduinoData.write((bytes(b'%r' % Temp)))
