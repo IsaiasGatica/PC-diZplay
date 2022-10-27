@@ -12,7 +12,6 @@ SparkFun_APDS9960 apds = SparkFun_APDS9960();
 
 
 void startupAPDS(){
-  
 
   if ( apds.init() ) {
     // Serial.println(F("APDS-9960 initialization complete"));
@@ -29,3 +28,4 @@ void startupAPDS(){
 
   apds.setGestureGain(2);
 }
+

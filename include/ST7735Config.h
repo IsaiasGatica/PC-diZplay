@@ -1,3 +1,16 @@
+/*
+   Configuraciones principales y funciones relacionadas al ST7735
+
+   -startupST7735(): Configuraciones iniciales y pantalla por default
+   -drawtext y drawvalor : Se encargan de dibujar los textos y numeros respectivamente.
+   -CambioPantalla(Pantalla) : Cambiar el valor del texto dependiendo del gesto realizado.
+
+*/
+
+
+
+
+
 #include <TFT_eSPI.h>
 #include <Fuentes/font.h>
 #include <Fuentes/Org_01.h>
@@ -40,4 +53,52 @@ void startupST7735()
 
     img2.createSprite(80,80); //Sprite para el valor númerico.
 
+}
+
+void drawtext(const char *text, int posx, int posy)
+{
+  img.fillScreen(TFT_BLACK);
+  img.setTextColor(TFT_WHITE, TFT_BLACK);
+  img.drawString(text, posx, posy);
+  img.pushSprite(0,0);
+
+
+}
+
+void drawvalor(uint8_t valor){
+  
+  img2.fillScreen(TFT_BLACK);
+  img2.setTextSize(1);
+  img2.drawString(String(valor), 0, 20,7);
+  img2.pushSprite(80,0);
+
+
+}
+
+void CambioPantalla( uint8_t Pantalla){
+   switch (Pantalla){
+
+    case Gputemp:
+      drawtext("GPU:", 0, 25);
+      break;
+    case Gpuload:
+      drawtext("GPU:", 0, 25);
+      break;
+    case Cputemp:
+      drawtext("CPU:", 0, 25);
+      break;
+    case Cpuload:
+      drawtext("CPU:", 0, 25);
+      break;
+    case RAM:
+      drawtext("RAM:", 0, 25);
+      break;
+    case Gpufan:
+      drawtext("FAN:", 0, 25);
+      break;
+    default:
+
+    break;
+
+  }
 }

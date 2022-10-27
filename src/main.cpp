@@ -1,174 +1,142 @@
-/**
-* 09/10/2022
-* Funcionando gestos y pantalla. Falta implementar la lectura de 
-* temperatura y su función correspondiente para visualizar en la pantalla.
-* Se utilizó la siguiente libreria para el sensor de gestos:
-* https://github.com/Dgemily/APDS-9960_Gesture_Sensor_esp8266_Library.git
-* Importante: Se agregó un capacitor de 220uf en la alimentación.
+/*
+
+  27/10/2022
+  Luego de intentar manipular el openhardwaremonitor.dll con visual studio y no
+  tener buenos resultados, se intenta obtener los datos de la PC a traves del
+  webserver de librehardwaremonitor. Se lograr en primer instancia, el problema
+  que surgio a raiz de esto es la gran cantidad de memoria que ocupa el JSON.
+  No siendo posible obtener estos datos y al mismo tiempo ejecutar el programa
+  principal (Pantalla+gestos).
+
+
+  09/10/2022
+  Funcionando gestos y pantalla. Falta implementar la lectura de
+  temperatura y su función correspondiente para visualizar en la pantalla.
+  Se utilizó la siguiente libreria para el sensor de gestos:
+  https://github.com/Dgemily/APDS-9960_Gesture_Sensor_esp8266_Library.git
+  Importante: Se agregó un capacitor de 220uf en la alimentación.
 
 */
 
-  
-
-#include <Arduino.h>  
+#include <Arduino.h>
 #include <Wire.h>
 #include <TFT_eSPI.h>
 #include <ST7735Config.h>
 #include <APDSConfig.h>
+#include <WiFiMonitorPC.h>
 
-
-void IRAM_ATTR interruptRoutine() {
+void IRAM_ATTR interruptRoutine()
+{
   isr_flag = 1;
 }
 
 void setup()
 {
-  
-  Wire.begin(APDS9960_SDA,APDS9960_SCL);
 
-  startupST7735();
-  startupAPDS();
+  // Wire.begin(APDS9960_SDA, APDS9960_SCL);
 
-  pinMode(digitalPinToInterrupt(APDS_INT), INPUT);
-  attachInterrupt(digitalPinToInterrupt(APDS_INT), interruptRoutine, FALLING);
+  // startupST7735();
+  // startupAPDS();
+
+  // pinMode(digitalPinToInterrupt(APDS_INT), INPUT);
+  // attachInterrupt(digitalPinToInterrupt(APDS_INT), interruptRoutine, FALLING);
 
   Serial.begin(115200);
+
+  startupWifi();
 }
 
-void drawtext(const char *text, int posx, int posy)
+void gestos()
 {
-  img.fillScreen(TFT_BLACK);
-  img.setTextColor(TFT_WHITE, TFT_BLACK);
-  img.drawString(text, posx, posy);
-  img.pushSprite(0,0);
-
-
-}
-
-void drawvalor(uint8_t valor){
-  
-  img2.fillScreen(TFT_BLACK);
-  img2.setTextSize(1);
-  img2.drawString(String(valor), 0, 20,7);
-  img2.pushSprite(80,0);
-
-
-}
-
-void CambioPantalla(){
-   switch (Pantalla){
-
-    case Gputemp:
-      drawtext("GPU:", 0, 25);
+  if (apds.isGestureAvailable())
+  {
+    switch (apds.readGesture())
+    {
+    case DIR_UP:
+      // Serial.println("^");
+      if (Pantalla == Gputemp)
+      {
+        Pantalla = Gpuload;
+      }
+      else if (Pantalla == Cputemp)
+      {
+        Pantalla = Cpuload;
+      }
+      else if (Pantalla == Gpufan)
+      {
+        Pantalla = Gputemp;
+      }
       break;
-    case Gpuload:
-      drawtext("GPU:", 0, 25);
+
+    case DIR_DOWN:
+      // Serial.println("v");
+
+      if (Pantalla == Gpuload)
+      {
+        Pantalla = Gputemp;
+      }
+      else if (Pantalla == Gputemp)
+      {
+        Pantalla = Gpufan;
+      }
+      else if (Pantalla == Cpuload)
+      {
+        Pantalla = Cputemp;
+      }
       break;
-    case Cputemp:
-      drawtext("CPU:", 0, 25);
+    case DIR_RIGHT:
+      // Serial.println(">");
+      if (Pantalla == Gputemp || Pantalla == Gpuload)
+      {
+        Pantalla = Cputemp;
+      }
+      else if (Pantalla == Cputemp || Pantalla == Cpuload)
+      {
+        Pantalla = RAM;
+      }
+      else if (Pantalla == RAM)
+      {
+        Pantalla = Gputemp;
+      }
       break;
-    case Cpuload:
-      drawtext("CPU:", 0, 25);
-      break;
-    case RAM:
-      drawtext("RAM:", 0, 25);
-      break;
-    case Gpufan:
-      drawtext("FAN:", 0, 25);
+    case DIR_LEFT:
+      // Serial.println("<");
+      if (Pantalla == Gputemp || Pantalla == Gpuload)
+      {
+        Pantalla = RAM;
+      }
+      else if (Pantalla == Cputemp || Pantalla == Cpuload)
+      {
+        Pantalla = Gputemp;
+      }
+      else if (Pantalla == RAM)
+      {
+        Pantalla = Cputemp;
+      }
       break;
     default:
 
-    break;
-
-  }
-}
-
-
-void gestos(){
-  if ( apds.isGestureAvailable() ) 
-  {  
-    switch (apds.readGesture())
-      {
-        case DIR_UP:
-          // Serial.println("^");
-          if (Pantalla==Gputemp){
-            Pantalla = Gpuload;
-          }
-          else if (Pantalla==Cputemp){
-            Pantalla = Cpuload;
-          }
-          else if (Pantalla==Gpufan){
-            Pantalla = Gputemp;
-          }
-          break;
-        
-        case DIR_DOWN:
-          // Serial.println("v");
-
-          if (Pantalla==Gpuload){
-            Pantalla = Gputemp;
-          }
-          else if (Pantalla == Gputemp){
-            Pantalla = Gpufan;
-          }
-          else if (Pantalla == Cpuload){
-            Pantalla = Cputemp;
-          }
-          break;
-        case DIR_RIGHT:
-          // Serial.println(">");
-          if (Pantalla==Gputemp ||Pantalla== Gpuload){
-            Pantalla = Cputemp;
-          }
-          else if (Pantalla==Cputemp || Pantalla== Cpuload){
-            Pantalla = RAM;
-          }
-          else if (Pantalla==RAM){
-            Pantalla = Gputemp;
-          }
-          break;
-        case DIR_LEFT:
-          // Serial.println("<");
-          if (Pantalla==Gputemp || Pantalla== Gpuload){
-            Pantalla = RAM;
-          }
-          else if (Pantalla==Cputemp || Pantalla== Cpuload){
-            Pantalla = Gputemp;
-          }
-          else if (Pantalla==RAM){
-            Pantalla = Cputemp;
-          }
-          break;
-        default:
-          
-          break;
+      break;
     }
   }
 }
+
 void loop()
 {
-if( isr_flag == 1 ) {
-    detachInterrupt(digitalPinToInterrupt(APDS_INT));
-    gestos();
-    CambioPantalla();
-    isr_flag = 0;
-    attachInterrupt(digitalPinToInterrupt(APDS_INT), interruptRoutine, FALLING);
-  }
+  // if (isr_flag == 1)
+  // {
+  //   detachInterrupt(digitalPinToInterrupt(APDS_INT));
+  //   gestos();
+  //   CambioPantalla(Pantalla);
+  //   isr_flag = 0;
+  //   attachInterrupt(digitalPinToInterrupt(APDS_INT), interruptRoutine, FALLING);
+  // }
 
+  // if (Serial.available() > 0)
+  // {
+  //   GputempSerial = Serial.parseInt();
+  // }
 
-if (Serial.available()>0){
-    GputempSerial= Serial.parseInt();
-    
-  }
-  
-    drawvalor(GputempSerial);
-
-
-
+  getJSONdata();
+  // drawvalor(cpuTempJ);
 }
-
-
-
-
-
-
