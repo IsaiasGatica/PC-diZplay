@@ -1,4 +1,14 @@
+/*
 
+  28/10/2022
+  Se logro reducir el tamaño utilizando la funcion filter del JSON.
+  En la implementacion actual se obtienen los "id" de ultimo nivel del JSON.
+  No se se logro filtrar mas que por "childrens".
+  Si no es posible un filtrado mayor, queda pendiente "ordenar" lo obtenido.
+  Puede ser util ver el codigo generado por el asistente cuando se pida mas de un valor.
+
+
+*/
 
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
@@ -9,8 +19,6 @@ const char *ssid = "WiFiG";
 const char *password = "independencia4a";
 const char *url = "http://arduinojson.org/example.json";
 const char *hostname = "Hardware Monitor";
-
-
 
 void startupWifi()
 {
@@ -38,31 +46,25 @@ void getJSONdata()
     http.begin(client, "http://192.168.1.33:8085/data.json");
     http.GET();
 
-    DynamicJsonDocument doc(45508);
+    StaticJsonDocument<200> filter;
+    filter["Children"][0]["Children"][0]["Children"][0]["Children"][0]["Children"][0]["id"] = true;
 
-    DeserializationError error = deserializeJson(doc, http.getStream(), DeserializationOption::NestingLimit(12));
+    DynamicJsonDocument doc(8000);
+
+    DeserializationError error = deserializeJson(doc, http.getStream(), DeserializationOption::Filter(filter), DeserializationOption::NestingLimit(12));
 
     if (error)
     {
+    D:
         Serial.print(F("deserializeJson() failed: "));
         Serial.println(error.f_str());
         return;
     }
 
-    JsonObject Children_0 = doc["Children"][0];
-    int Children_0_id = Children_0["id"];             // 1
-    const char *Children_0_Text = Children_0["Text"]; // "DESKTOP-GLR5S6K"
+    serializeJsonPretty(doc, Serial);
 
-    String cpuTempJ = doc["Children"][0]["Children"][1]["Children"][3]["Children"][6]["Value"];
-
-    
-
-    Serial.print("\n\n\n\nCPU: ");
-    Serial.println(cpuTempJ);
+    // Serial.print("\n\n\n\nCPU: ");
+    // Serial.println(cpuTempJ);
 
     http.end();
-
-    
-
-   
 }

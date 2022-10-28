@@ -1,5 +1,11 @@
 /*
 
+  28/10/2022
+  Funcionando con una implementacion inicial del filtrador JSON.
+  Mas info en "WifiMonitorPC.h"
+
+
+
   27/10/2022
   Luego de intentar manipular el openhardwaremonitor.dll con visual studio y no
   tener buenos resultados, se intenta obtener los datos de la PC a traves del
@@ -33,13 +39,13 @@ void IRAM_ATTR interruptRoutine()
 void setup()
 {
 
-  // Wire.begin(APDS9960_SDA, APDS9960_SCL);
+  Wire.begin(APDS9960_SDA, APDS9960_SCL);
 
-  // startupST7735();
-  // startupAPDS();
+  startupST7735();
+  startupAPDS();
 
-  // pinMode(digitalPinToInterrupt(APDS_INT), INPUT);
-  // attachInterrupt(digitalPinToInterrupt(APDS_INT), interruptRoutine, FALLING);
+  pinMode(digitalPinToInterrupt(APDS_INT), INPUT);
+  attachInterrupt(digitalPinToInterrupt(APDS_INT), interruptRoutine, FALLING);
 
   Serial.begin(115200);
 
@@ -123,20 +129,22 @@ void gestos()
 
 void loop()
 {
-  // if (isr_flag == 1)
-  // {
-  //   detachInterrupt(digitalPinToInterrupt(APDS_INT));
-  //   gestos();
-  //   CambioPantalla(Pantalla);
-  //   isr_flag = 0;
-  //   attachInterrupt(digitalPinToInterrupt(APDS_INT), interruptRoutine, FALLING);
-  // }
+  if (isr_flag == 1)
+  {
+    detachInterrupt(digitalPinToInterrupt(APDS_INT));
+    gestos();
+    CambioPantalla(Pantalla);
+    isr_flag = 0;
+    attachInterrupt(digitalPinToInterrupt(APDS_INT), interruptRoutine, FALLING);
+  }
 
-  // if (Serial.available() > 0)
-  // {
-  //   GputempSerial = Serial.parseInt();
-  // }
+  if (Serial.available() > 0)
+  {
+    GputempSerial = Serial.parseInt();
+  }
 
   getJSONdata();
   // drawvalor(cpuTempJ);
+
+  delay(1000);
 }
