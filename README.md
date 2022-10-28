@@ -8,7 +8,8 @@
 
 Proyecto personal de un monitor externo para PC. Se desea mostrar la temperatura, velocidad y/o carga del hardware principal (GPU-CPU-RAM). 
 - Se utiliza una pantalla TFT y la navegación entre menus se realiza con un sensor de gestos.
-- La información de la PC se "extrae" de `OpenHardwareMonitorLib.dll `.
+-  ~~La información de la PC se "extrae" de `OpenHardwareMonitorLib.dll `.~~
+- La información de la PC se "extrae" del webserver de `LibreHardwareMonitorLib`
 ### :wrench: Hardware:
 - Wemos D1 Mini
 - ST 7735 - 0.96' 80x160
@@ -22,4 +23,5 @@ El capacitor es de 220uF. Es necesario si la alimentación proviene del USB.
 ### :books: Librerias:
 - [APDS-9960_Gesture_Sensor_esp8266_Library](https://github.com/Dgemily/APDS-9960_Gesture_Sensor_esp8266_Library)
 - [Bodmer/TFT_eSPI](https://github.com/Bodmer/TFT_eSPI)
+- [ArduinoJSON](https://github.com/bblanchon/ArduinoJson)
 
