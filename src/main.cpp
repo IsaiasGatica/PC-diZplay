@@ -1,10 +1,9 @@
 /*
 
+
   28/10/2022
   Funcionando con una implementacion inicial del filtrador JSON.
   Mas info en "WifiMonitorPC.h"
-
-
 
   27/10/2022
   Luego de intentar manipular el openhardwaremonitor.dll con visual studio y no
@@ -13,7 +12,6 @@
   que surgio a raiz de esto es la gran cantidad de memoria que ocupa el JSON.
   No siendo posible obtener estos datos y al mismo tiempo ejecutar el programa
   principal (Pantalla+gestos).
-
 
   09/10/2022
   Funcionando gestos y pantalla. Falta implementar la lectura de
@@ -30,6 +28,8 @@
 #include <ST7735Config.h>
 #include <APDSConfig.h>
 #include <WiFiMonitorPC.h>
+
+int cpuTempJ = 0;
 
 void IRAM_ATTR interruptRoutine()
 {
@@ -138,13 +138,8 @@ void loop()
     attachInterrupt(digitalPinToInterrupt(APDS_INT), interruptRoutine, FALLING);
   }
 
-  if (Serial.available() > 0)
-  {
-    GputempSerial = Serial.parseInt();
-  }
-
-  getJSONdata();
-  // drawvalor(cpuTempJ);
+  cpuTempJ = getJSONdata();
+  drawvalor(cpuTempJ);
 
   delay(1000);
 }
