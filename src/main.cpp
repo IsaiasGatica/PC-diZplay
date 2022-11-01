@@ -98,7 +98,7 @@ void gestos()
       {
         Pantalla = RAM;
       }
-      else if (Pantalla == RAM)
+      else if (Pantalla == Reloj)
       {
         Pantalla = Gputemp;
       }
@@ -107,7 +107,7 @@ void gestos()
       // Serial.println("<");
       if (Pantalla == Gputemp || Pantalla == Gpuload)
       {
-        Pantalla = RAM;
+        Pantalla = Reloj;
       }
       else if (Pantalla == Cputemp || Pantalla == Cpuload)
       {
