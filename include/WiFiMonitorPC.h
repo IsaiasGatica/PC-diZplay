@@ -29,11 +29,16 @@
 #include <ESP8266HTTPClient.h>
 #include <ESP8266WebServer.h>
 #include <ArduinoJson.h>
+#include <NTPClient.h>
+#include <WiFiUdp.h>
 
 const char *ssid = "WiFiG";
 const char *password = "independencia4a";
 const char *url = "http://arduinojson.org/example.json";
 const char *hostname = "Hardware Monitor";
+
+WiFiUDP ntpUDP;
+NTPClient timeClient(ntpUDP, "pool.ntp.org");
 
 String Nan = "--";
 
@@ -51,6 +56,9 @@ void startupWifi()
     Serial.println("Ready");
     Serial.print("IP address: ");
     Serial.println(WiFi.localIP());
+
+    timeClient.begin();
+    timeClient.setTimeOffset(-10800);
 }
 
 String getJSONdata(uint8_t Pantalla)
@@ -65,7 +73,7 @@ String getJSONdata(uint8_t Pantalla)
     StaticJsonDocument<144> filter;
     filter["Children"][0]["Children"][0]["Children"][0]["Children"][0]["Value"] = true;
 
-    DynamicJsonDocument doc(7144);
+    DynamicJsonDocument doc(9144);
 
     DeserializationError error = deserializeJson(doc, http.getStream(), DeserializationOption::Filter(filter), DeserializationOption::NestingLimit(12));
 
@@ -78,6 +86,12 @@ String getJSONdata(uint8_t Pantalla)
     // serializeJsonPretty(doc, Serial);
 
     http.end();
+
+    timeClient.update();
+    int currentHour = timeClient.getHours();
+    int currentMinute = timeClient.getMinutes();
+    int currentSecond = timeClient.getSeconds();
+    String Hora = String(currentHour)+":"+String(currentMinute);
 
     switch (Pantalla)
     {
@@ -121,6 +135,10 @@ String getJSONdata(uint8_t Pantalla)
         return GpuFAN.substring(0, 2);
 
         break;
+    }
+    case Reloj:
+    {
+        return Hora;
     }
     default:
 

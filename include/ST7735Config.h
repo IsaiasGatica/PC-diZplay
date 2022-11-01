@@ -24,25 +24,25 @@ enum Menus
   Gpufan,
   Cputemp,
   Cpuload,
-  RAM
+  RAM,
+  Reloj
 
 } Menus;
 
-uint8_t Pantalla = Gputemp;
-uint8_t Pantalla0;
-uint8_t GputempSerial;
+uint8_t Pantalla = Reloj;
 
 void startupST7735()
 {
   tft.init();
   tft.setRotation(3);
 
+
   img.createSprite(80, 80);
   img.fillScreen(TFT_BLACK);
   img.setFreeFont(&Orbitron_Medium_27);
   img.setTextColor(TFT_WHITE, TFT_BLACK);
   img.setTextSize(1);
-  img.drawString("GPU:", 0, 25);
+  //img.drawString("GPU:", 0, 25);
   img.pushSprite(0, 0);
 
   img2.createSprite(80, 80); // Sprite para el valor númerico.
@@ -60,11 +60,32 @@ void drawtext(const char *text, int posx, int posy)
 
 void drawvalor(String valor)
 {
+  if (Pantalla == Reloj)
+  {
+     
+   
+
+    img2.fillScreen(TFT_BLACK);
+    img2.setTextSize(1);
+    img2.drawString(valor.substring(0,3), 0, 20, 7);
+    img2.pushSprite(0, 0);
+
+    
+    img.fillScreen(TFT_BLACK);
+    img.setTextSize(1);
+    img.drawString(valor.substring(3,5), 0, 20, 7);
+    img.pushSprite(80, 0);
+
+
+  }
+
+  else{
 
   img2.fillScreen(TFT_BLACK);
   img2.setTextSize(1);
   img2.drawString(valor, 0, 20, 7);
   img2.pushSprite(80, 0);
+  }
 }
 
 void CambioPantalla(uint8_t Pantalla)
