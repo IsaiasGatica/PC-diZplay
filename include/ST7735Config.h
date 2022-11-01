@@ -33,8 +33,7 @@ uint8_t Pantalla = Reloj;
 
 void startupST7735()
 {
-  tft.init();
-  tft.setRotation(3);
+  
 
 
   img.createSprite(80, 80);

@@ -28,6 +28,9 @@
 #include <ST7735Config.h>
 #include <APDSConfig.h>
 #include <WiFiMonitorPC.h>
+#include "image.h"
+#include "image2.h"
+#include "image3.h"
 
 void IRAM_ATTR interruptRoutine()
 {
@@ -38,6 +41,25 @@ void setup()
 {
 
   Serial.begin(115200);
+
+  tft.init();
+  tft.setRotation(3);
+  tft.setSwapBytes(true);
+
+  WiFi.begin(ssid, password);
+
+  while (WiFi.status() != WL_CONNECTED)
+  {
+    delay(500);
+    tft.pushImage(0, 0, 160, 80, image);
+    delay(500);
+
+    tft.pushImage(0, 0, 160, 80, image2);
+    delay(100);
+
+    tft.pushImage(0, 0, 160, 80, image3);
+    delay(10);
+  }
 
   startupWifi();
 
@@ -101,6 +123,9 @@ void gestos()
       else if (Pantalla == Reloj)
       {
         Pantalla = Gputemp;
+      }
+      else if (Pantalla == RAM){
+        Pantalla=Gputemp;
       }
       break;
     case DIR_LEFT:

@@ -90,8 +90,11 @@ String getJSONdata(uint8_t Pantalla)
     timeClient.update();
     int currentHour = timeClient.getHours();
     int currentMinute = timeClient.getMinutes();
-    int currentSecond = timeClient.getSeconds();
-    String Hora = String(currentHour)+":"+String(currentMinute);
+
+    String Hora = timeClient.getFormattedTime();
+    
+
+    // String Hora = String(currentHour) + ":" + String(currentMinute);
 
     switch (Pantalla)
     {
