@@ -1,0 +1,655 @@
+{
+    "Children": [
+        {
+            "Children": [
+                {
+                    "Children": [
+                        {
+                            "Children": [
+                                {
+                                    "Value": ""
+                                },
+                                {
+                                    "Value": ""
+                                },
+                                {
+                                    "Value": ""
+                                },
+                                {
+                                    "Value": ""
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "Children": [
+                        {
+                            "Children": [
+                                {
+                                    "Value": "1,231 V"
+                                },
+                                {
+                                    "Value": "1,231 V"
+                                },
+                                {
+                                    "Value": "1,216 V"
+                                },
+                                {
+                                    "Value": "1,266 V"
+                                },
+                                {
+                                    "Value": "1,251 V"
+                                },
+                                {
+                                    "Value": "1,256 V"
+                                },
+                                {
+                                    "Value": "1,259 V"
+                                }
+                            ]
+                        },
+                        {
+                            "Children": [
+                                {
+                                    "Value": "47,6 W"
+                                },
+                                {
+                                    "Value": "33,2 W"
+                                },
+                                {
+                                    "Value": "0,0 W"
+                                }
+                            ]
+                        },
+                        {
+                            "Children": [
+                                {
+                                    "Value": "100,3 MHz"
+                                },
+                                {
+                                    "Value": "4614,2 MHz"
+                                },
+                                {
+                                    "Value": "4614,2 MHz"
+                                },
+                                {
+                                    "Value": "4614,2 MHz"
+                                },
+                                {
+                                    "Value": "4614,2 MHz"
+                                },
+                                {
+                                    "Value": "4614,2 MHz"
+                                },
+                                {
+                                    "Value": "4614,2 MHz"
+                                }
+                            ]
+                        },
+                        {
+                            "Children": [
+                                {
+                                    "Value": "48,0 °C"
+                                },
+                                {
+                                    "Value": "44,0 °C"
+                                },
+                                {
+                                    "Value": "47,0 °C"
+                                },
+                                {
+                                    "Value": "47,0 °C"
+                                },
+                                {
+                                    "Value": "43,0 °C"
+                                },
+                                {
+                                    "Value": "42,0 °C"
+                                },
+                                {
+                                    "Value": "48,0 °C"
+                                },
+                                {
+                                    "Value": "52,0 °C"
+                                },
+                                {
+                                    "Value": "56,0 °C"
+                                },
+                                {
+                                    "Value": "53,0 °C"
+                                },
+                                {
+                                    "Value": "53,0 °C"
+                                },
+                                {
+                                    "Value": "57,0 °C"
+                                },
+                                {
+                                    "Value": "58,0 °C"
+                                },
+                                {
+                                    "Value": "48,0 °C"
+                                },
+                                {
+                                    "Value": "45,2 °C"
+                                }
+                            ]
+                        },
+                        {
+                            "Children": [
+                                {
+                                    "Value": "6,6 %"
+                                },
+                                {
+                                    "Value": "4,7 %"
+                                },
+                                {
+                                    "Value": "3,1 %"
+                                },
+                                {
+                                    "Value": "9,4 %"
+                                },
+                                {
+                                    "Value": "4,7 %"
+                                },
+                                {
+                                    "Value": "12,5 %"
+                                },
+                                {
+                                    "Value": "3,1 %"
+                                },
+                                {
+                                    "Value": "3,1 %"
+                                },
+                                {
+                                    "Value": "4,7 %"
+                                },
+                                {
+                                    "Value": "7,8 %"
+                                },
+                                {
+                                    "Value": "7,8 %"
+                                },
+                                {
+                                    "Value": "10,9 %"
+                                },
+                                {
+                                    "Value": "7,8 %"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "Children": [
+                        {
+                            "Children": [
+                                {
+                                    "Value": "32,0 %"
+                                },
+                                {
+                                    "Value": "36,3 %"
+                                }
+                            ]
+                        },
+                        {
+                            "Children": [
+                                {
+                                    "Value": "10,2 GB"
+                                },
+                                {
+                                    "Value": "21,7 GB"
+                                },
+                                {
+                                    "Value": "13,3 GB"
+                                },
+                                {
+                                    "Value": "23,3 GB"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "Children": [
+                        {
+                            "Children": [
+                                {
+                                    "Value": "9,9 W"
+                                }
+                            ]
+                        },
+                        {
+                            "Children": [
+                                {
+                                    "Value": "390,0 MHz"
+                                },
+                                {
+                                    "Value": "405,0 MHz"
+                                }
+                            ]
+                        },
+                        {
+                            "Children": [
+                                {
+                                    "Value": "37,0 °C"
+                                },
+                                {
+                                    "Value": "48,9 °C"
+                                }
+                            ]
+                        },
+                        {
+                            "Children": [
+                                {
+                                    "Value": "18,0 %"
+                                },
+                                {
+                                    "Value": "13,0 %"
+                                },
+                                {
+                                    "Value": "0,0 %"
+                                },
+                                {
+                                    "Value": "2,0 %"
+                                },
+                                {
+                                    "Value": "7,6 %"
+                                },
+                                {
+                                    "Value": "8,0 %"
+                                },
+                                {
+                                    "Value": "20,2 %"
+                                },
+                                {
+                                    "Value": "0,0 %"
+                                },
+                                {
+                                    "Value": "0,0 %"
+                                },
+                                {
+                                    "Value": "0,0 %"
+                                },
+                                {
+                                    "Value": "0,1 %"
+                                },
+                                {
+                                    "Value": "0,0 %"
+                                },
+                                {
+                                    "Value": "0,1 %"
+                                },
+                                {
+                                    "Value": "0,0 %"
+                                },
+                                {
+                                    "Value": "0,0 %"
+                                },
+                                {
+                                    "Value": "0,1 %"
+                                },
+                                {
+                                    "Value": "0,0 %"
+                                },
+                                {
+                                    "Value": "0,0 %"
+                                },
+                                {
+                                    "Value": "0,0 %"
+                                },
+                                {
+                                    "Value": "0,0 %"
+                                },
+                                {
+                                    "Value": "0,0 %"
+                                },
+                                {
+                                    "Value": "0,0 %"
+                                },
+                                {
+                                    "Value": "0,0 %"
+                                }
+                            ]
+                        },
+                        {
+                            "Children": [
+                                {
+                                    "Value": "0 RPM"
+                                }
+                            ]
+                        },
+                        {
+                            "Children": [
+                                {
+                                    "Value": "0,0 %"
+                                }
+                            ]
+                        },
+                        {
+                            "Children": [
+                                {
+                                    "Value": "5479,0 MB"
+                                },
+                                {
+                                    "Value": "664,0 MB"
+                                },
+                                {
+                                    "Value": "6144,0 MB"
+                                },
+                                {
+                                    "Value": "518,9 MB"
+                                },
+                                {
+                                    "Value": "149,0 MB"
+                                }
+                            ]
+                        },
+                        {
+                            "Children": [
+                                {
+                                    "Value": "93,8 MB/s"
+                                },
+                                {
+                                    "Value": "11,7 MB/s"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "Children": [
+                        {
+                            "Children": [
+                                {
+                                    "Value": "32,0 °C"
+                                }
+                            ]
+                        },
+                        {
+                            "Children": [
+                                {
+                                    "Value": "76,9 %"
+                                },
+                                {
+                                    "Value": "0,0 %"
+                                },
+                                {
+                                    "Value": "0,0 %"
+                                }
+                            ]
+                        },
+                        {
+                            "Children": [
+                                {
+                                    "Value": "0,0 KB/s"
+                                },
+                                {
+                                    "Value": "0,0 KB/s"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "Children": [
+                        {
+                            "Children": [
+                                {
+                                    "Value": "26,0 °C"
+                                }
+                            ]
+                        },
+                        {
+                            "Children": [
+                                {
+                                    "Value": "74,9 %"
+                                },
+                                {
+                                    "Value": "0,0 %"
+                                },
+                                {
+                                    "Value": "0,0 %"
+                                }
+                            ]
+                        },
+                        {
+                            "Children": [
+                                {
+                                    "Value": "0,0 KB/s"
+                                },
+                                {
+                                    "Value": "0,0 KB/s"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "Children": [
+                        {
+                            "Children": [
+                                {
+                                    "Value": "29,0 °C"
+                                }
+                            ]
+                        },
+                        {
+                            "Children": [
+                                {
+                                    "Value": "65,6 %"
+                                },
+                                {
+                                    "Value": "0,0 %"
+                                },
+                                {
+                                    "Value": "0,0 %"
+                                }
+                            ]
+                        },
+                        {
+                            "Children": [
+                                {
+                                    "Value": "0,0 KB/s"
+                                },
+                                {
+                                    "Value": "0,0 KB/s"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "Children": [
+                        {
+                            "Children": [
+                                {
+                                    "Value": "34,0 °C"
+                                }
+                            ]
+                        },
+                        {
+                            "Children": [
+                                {
+                                    "Value": "70,8 %"
+                                },
+                                {
+                                    "Value": "0,0 %"
+                                },
+                                {
+                                    "Value": "0,0 %"
+                                }
+                            ]
+                        },
+                        {
+                            "Children": [
+                                {
+                                    "Value": "0,0 KB/s"
+                                },
+                                {
+                                    "Value": "0,0 KB/s"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "Children": [
+                        {
+                            "Children": [
+                                {
+                                    "Value": "0,0 %"
+                                }
+                            ]
+                        },
+                        {
+                            "Children": [
+                                {
+                                    "Value": "0,0 GB"
+                                },
+                                {
+                                    "Value": "0,0 GB"
+                                }
+                            ]
+                        },
+                        {
+                            "Children": [
+                                {
+                                    "Value": "0,0 KB/s"
+                                },
+                                {
+                                    "Value": "0,0 KB/s"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "Children": [
+                        {
+                            "Children": [
+                                {
+                                    "Value": "0,0 %"
+                                }
+                            ]
+                        },
+                        {
+                            "Children": [
+                                {
+                                    "Value": "0,0 GB"
+                                },
+                                {
+                                    "Value": "0,0 GB"
+                                }
+                            ]
+                        },
+                        {
+                            "Children": [
+                                {
+                                    "Value": "0,0 KB/s"
+                                },
+                                {
+                                    "Value": "0,0 KB/s"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "Children": [
+                        {
+                            "Children": [
+                                {
+                                    "Value": "0,0 %"
+                                }
+                            ]
+                        },
+                        {
+                            "Children": [
+                                {
+                                    "Value": "0,0 GB"
+                                },
+                                {
+                                    "Value": "0,0 GB"
+                                }
+                            ]
+                        },
+                        {
+                            "Children": [
+                                {
+                                    "Value": "0,0 KB/s"
+                                },
+                                {
+                                    "Value": "0,0 KB/s"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "Children": [
+                        {
+                            "Children": [
+                                {
+                                    "Value": "0,0 %"
+                                }
+                            ]
+                        },
+                        {
+                            "Children": [
+                                {
+                                    "Value": "0,0 GB"
+                                },
+                                {
+                                    "Value": "0,3 GB"
+                                }
+                            ]
+                        },
+                        {
+                            "Children": [
+                                {
+                                    "Value": "1,3 KB/s"
+                                },
+                                {
+                                    "Value": "1,1 KB/s"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "Children": [
+                        {
+                            "Children": [
+                                {
+                                    "Value": "NaN %"
+                                }
+                            ]
+                        },
+                        {
+                            "Children": [
+                                {
+                                    "Value": "0,0 GB"
+                                },
+                                {
+                                    "Value": "0,0 GB"
+                                }
+                            ]
+                        },
+                        {
+                            "Children": [
+                                {
+                                    "Value": "0,0 KB/s"
+                                },
+                                {
+                                    "Value": "0,0 KB/s"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

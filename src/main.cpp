@@ -2,7 +2,7 @@
 
 
   28/10/2022
-  Funcionando con una implementacion inicial del filtrador JSON.
+  Funcionando con una implementacion inicial del filter JSON.
   Mas info en "WifiMonitorPC.h"
 
   27/10/2022
@@ -29,8 +29,6 @@
 #include <APDSConfig.h>
 #include <WiFiMonitorPC.h>
 
-int cpuTempJ = 0;
-
 void IRAM_ATTR interruptRoutine()
 {
   isr_flag = 1;
@@ -39,6 +37,10 @@ void IRAM_ATTR interruptRoutine()
 void setup()
 {
 
+  Serial.begin(115200);
+
+  startupWifi();
+
   Wire.begin(APDS9960_SDA, APDS9960_SCL);
 
   startupST7735();
@@ -46,10 +48,6 @@ void setup()
 
   pinMode(digitalPinToInterrupt(APDS_INT), INPUT);
   attachInterrupt(digitalPinToInterrupt(APDS_INT), interruptRoutine, FALLING);
-
-  Serial.begin(115200);
-
-  startupWifi();
 }
 
 void gestos()
@@ -138,8 +136,5 @@ void loop()
     attachInterrupt(digitalPinToInterrupt(APDS_INT), interruptRoutine, FALLING);
   }
 
-  cpuTempJ = getJSONdata();
-  drawvalor(cpuTempJ);
-
-  delay(1000);
+  drawvalor(getJSONdata(Pantalla));
 }
