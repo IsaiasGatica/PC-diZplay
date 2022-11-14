@@ -24,13 +24,26 @@
 
 #include <Arduino.h>
 #include <Wire.h>
+#include <SparkFun_APDS9960.h>
+
 #include <TFT_eSPI.h>
-#include <ST7735Config.h>
-#include <APDSConfig.h>
-#include <WiFiMonitorPC.h>
+#include <ESP8266WiFi.h>
+#include <ESP8266HTTPClient.h>
+#include <ArduinoJson.h>
+#include <NTPClient.h>
+#include <WiFiUdp.h>
+#include <FS.h>
+#include <ESPAsyncTCP.h>
+#include <ESPAsyncWebServer.h>
+
+#include "Settings.hpp"
+#include "ST7735Config.hpp"
+#include "APDSConfig.hpp"
+#include "WebServer.hpp"
 #include "image.h"
 #include "image2.h"
 #include "image3.h"
+#include "WiFiMonitorPC.hpp"
 
 void IRAM_ATTR interruptRoutine()
 {
@@ -42,34 +55,22 @@ void setup()
 
   Serial.begin(115200);
 
-  tft.init();
-  tft.setRotation(3);
-  tft.setSwapBytes(true);
-
-  WiFi.begin(ssid, password);
-
-  while (WiFi.status() != WL_CONNECTED)
+  if (ModoAP)
   {
-    delay(500);
-    tft.pushImage(0, 0, 160, 80, image);
-    delay(500);
-
-    tft.pushImage(0, 0, 160, 80, image2);
-    delay(100);
-
-    tft.pushImage(0, 0, 160, 80, image3);
-    delay(10);
+    startAP();
+    initServer();
   }
+  else
+  {
 
-  startupWifi();
+    Wire.begin(APDS9960_SDA, APDS9960_SCL);
 
-  Wire.begin(APDS9960_SDA, APDS9960_SCL);
-
-  startupST7735();
-  startupAPDS();
-
-  pinMode(digitalPinToInterrupt(APDS_INT), INPUT);
-  attachInterrupt(digitalPinToInterrupt(APDS_INT), interruptRoutine, FALLING);
+    startupST7735();
+    startupAPDS();
+    startupWifi();
+    pinMode(digitalPinToInterrupt(APDS_INT), INPUT);
+    attachInterrupt(digitalPinToInterrupt(APDS_INT), interruptRoutine, FALLING);
+  }
 }
 
 void gestos()
@@ -124,8 +125,9 @@ void gestos()
       {
         Pantalla = Gputemp;
       }
-      else if (Pantalla == RAM){
-        Pantalla=Gputemp;
+      else if (Pantalla == RAM)
+      {
+        Pantalla = Gputemp;
       }
       break;
     case DIR_LEFT:
@@ -152,14 +154,18 @@ void gestos()
 
 void loop()
 {
-  if (isr_flag == 1)
+  if (!ModoAP)
   {
-    detachInterrupt(digitalPinToInterrupt(APDS_INT));
-    gestos();
-    CambioPantalla(Pantalla);
-    isr_flag = 0;
-    attachInterrupt(digitalPinToInterrupt(APDS_INT), interruptRoutine, FALLING);
-  }
 
-  drawvalor(getJSONdata(Pantalla));
+    if (isr_flag == 1)
+    {
+      detachInterrupt(digitalPinToInterrupt(APDS_INT));
+      gestos();
+      CambioPantalla(Pantalla);
+      isr_flag = 0;
+      attachInterrupt(digitalPinToInterrupt(APDS_INT), interruptRoutine, FALLING);
+    }
+
+    drawvalor(getJSONdata(Pantalla));
+  }
 }
