@@ -43,7 +43,6 @@ void startupST7735()
   img.setFreeFont(&Orbitron_Medium_27);
   img.setTextColor(TFT_WHITE, TFT_BLACK);
   img.setTextSize(1);
-  // img.drawString("GPU:", 0, 25);
   img.pushSprite(0, 0);
 
   img2.createSprite(80, 80); // Sprite para el valor númerico.
@@ -66,12 +65,12 @@ void drawvalor(String valor)
 
     img2.fillScreen(TFT_BLACK);
     img2.setTextSize(1);
-    img2.drawString(valor.substring(0, 3), 0, 20, 7);
+    img2.drawString(valor.substring(0, 3), 10, 20, 7);
     img2.pushSprite(0, 0);
 
     img.fillScreen(TFT_BLACK);
     img.setTextSize(1);
-    img.drawString(valor.substring(3, 5), 0, 20, 7);
+    img.drawString(valor.substring(3, 5), 5, 20, 7);
     img.pushSprite(80, 0);
   }
 
@@ -80,7 +79,7 @@ void drawvalor(String valor)
 
     img2.fillScreen(TFT_BLACK);
     img2.setTextSize(1);
-    img2.drawString(valor, 0, 20, 7);
+    img2.drawString(valor, 10, 20, 7);
     img2.pushSprite(80, 0);
   }
 }
@@ -101,24 +100,24 @@ void CambioPantalla(uint8_t Pantalla)
   {
 
   case Gputemp:
-    drawtext("GPU:", 0, 25);
+    drawtext("GPU:", 8, 25);
 
     break;
   case Gpuload:
-    drawtext("GPU:", 0, 25);
+    drawtext("GPU:", 8, 25);
 
     break;
   case Cputemp:
-    drawtext("CPU:", 0, 25);
+    drawtext("CPU:", 8, 25);
     break;
   case Cpuload:
-    drawtext("CPU:", 0, 25);
+    drawtext("CPU:", 8, 25);
     break;
   case RAM:
-    drawtext("RAM:", 0, 25);
+    drawtext("RAM:", 8, 25);
     break;
   case Gpufan:
-    drawtext("FAN:", 0, 25);
+    drawtext("FAN:", 8, 25);
     break;
   default:
 

@@ -36,18 +36,8 @@ void initServer()
                   writeSPIFSS("/red.txt",nr);
                   writeSPIFSS("/pass.txt",np);
 
-              
-                     
-                    // ModoAP=false;
-                    // ESP.restart();
-                    // saveEeprom(0,nr);
-                    // saveEeprom(100,np);
-
-
-
-
-                    EEPROM.write(250, 1);
-                    EEPROM.commit();
+                  EEPROM.write(250, 1);
+                  EEPROM.commit();
 
                   Serial.println(nr);
                   Serial.println(np);

@@ -40,22 +40,12 @@ DNSServer dnsServer;
 
 void startupWifi()
 {
-
-    // readEeprom(0).toCharArray(ssid, 50);
-    // readEeprom(100).toCharArray(password, 50);
-
     ssid = readSPIFSS("/red.txt");
     password = readSPIFSS("/pass.txt");
 
     Serial.println("Credenciales");
     Serial.println(ssid);
     Serial.println(password);
-
-    if (!SPIFFS.begin())
-    {
-        Serial.println("An Error has occurred while mounting SPIFFS");
-        return;
-    }
 
     WiFi.hostname(hostname);
     WiFi.begin(ssid, password);
@@ -127,8 +117,6 @@ String getJSONdata(uint8_t Pantalla)
         Serial.println(error.f_str());
     }
 
-    // serializeJsonPretty(doc, Serial);
-
     http.end();
 
     timeClient.update();
@@ -136,8 +124,6 @@ String getJSONdata(uint8_t Pantalla)
     int currentMinute = timeClient.getMinutes();
 
     String Hora = timeClient.getFormattedTime();
-
-    // String Hora = String(currentHour) + ":" + String(currentMinute);
 
     switch (Pantalla)
     {
