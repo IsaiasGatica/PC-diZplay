@@ -25,6 +25,7 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <SparkFun_APDS9960.h>
+#include <EEPROM.h>
 
 #include <TFT_eSPI.h>
 #include <ESP8266WiFi.h>
@@ -37,13 +38,14 @@
 #include <ESPAsyncWebServer.h>
 
 #include "Settings.hpp"
+#include "Functions.hpp"
 #include "ST7735Config.hpp"
 #include "APDSConfig.hpp"
-#include "WebServer.hpp"
 #include "image.h"
 #include "image2.h"
 #include "image3.h"
 #include "WiFiMonitorPC.hpp"
+#include "WebServer.hpp"
 
 void IRAM_ATTR interruptRoutine()
 {
@@ -52,10 +54,23 @@ void IRAM_ATTR interruptRoutine()
 
 void setup()
 {
-
+  EEPROM.begin(520);
   Serial.begin(115200);
 
-  if (ModoAP)
+  if (!SPIFFS.begin())
+  {
+    Serial.println("An Error has occurred while mounting SPIFFS");
+    return;
+  }
+
+  // for (int i = 0; i < EEPROM.length(); i++)
+  // {
+
+  //   // EEPROM.write(i,0);
+  //   Serial.println(EEPROM.read(i));
+  // }
+
+  if (Modowifi())
   {
     startAP();
     initServer();
@@ -154,7 +169,7 @@ void gestos()
 
 void loop()
 {
-  if (!ModoAP)
+  if (!Modowifi())
   {
 
     if (isr_flag == 1)

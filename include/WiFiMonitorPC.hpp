@@ -32,9 +32,20 @@ WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP, "pool.ntp.org");
 
 String Nan = "--";
+int reconnect = 0;
 
 void startupWifi()
 {
+
+    // readEeprom(0).toCharArray(ssid, 50);
+    // readEeprom(100).toCharArray(password, 50);
+
+    ssid = readSPIFSS("/red.txt");
+    password = readSPIFSS("/pass.txt");
+
+    Serial.println("Credenciales");
+    Serial.println(ssid);
+    Serial.println(password);
 
     if (!SPIFFS.begin())
     {
@@ -56,6 +67,14 @@ void startupWifi()
 
         tft.pushImage(0, 0, 160, 80, image3);
         delay(10);
+
+        reconnect = reconnect + 1;
+
+        if (reconnect == 50)
+        {
+            Serial.println("No se pudo conectar");
+            defaultWifi();
+        }
     }
 
     Serial.println("Ready");
