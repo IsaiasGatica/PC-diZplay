@@ -31,8 +31,8 @@ void initServer()
                   }
 
 
+                if (np!=""&& nr !=""){
 
-                    
                   writeSPIFSS("/red.txt",nr);
                   writeSPIFSS("/pass.txt",np);
 
@@ -49,10 +49,12 @@ void initServer()
                     EEPROM.write(250, 1);
                     EEPROM.commit();
 
-                
-
                   Serial.println(nr);
-                  Serial.println(np); });
+                  Serial.println(np);
+
+                  ESP.restart();
+                  
+                } });
 
     server.begin();
 }

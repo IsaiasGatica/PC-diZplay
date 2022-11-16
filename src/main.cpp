@@ -30,6 +30,7 @@
 #include <TFT_eSPI.h>
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
+#include <DNSServer.h>
 #include <ArduinoJson.h>
 #include <NTPClient.h>
 #include <WiFiUdp.h>
@@ -47,6 +48,7 @@
 #include "WiFiMonitorPC.hpp"
 #include "WebServer.hpp"
 
+
 void IRAM_ATTR interruptRoutine()
 {
   isr_flag = 1;
@@ -54,8 +56,10 @@ void IRAM_ATTR interruptRoutine()
 
 void setup()
 {
+
   EEPROM.begin(520);
   Serial.begin(115200);
+  //defaultWifi(); // Para forzar modo AP si ya tengo las credenciales correctas.
 
   if (!SPIFFS.begin())
   {
@@ -70,8 +74,11 @@ void setup()
   //   Serial.println(EEPROM.read(i));
   // }
 
+  startupST7735();
+
   if (Modowifi())
   {
+    Pantallasinformativas("Modo AP");
     startAP();
     initServer();
   }
@@ -80,7 +87,6 @@ void setup()
 
     Wire.begin(APDS9960_SDA, APDS9960_SCL);
 
-    startupST7735();
     startupAPDS();
     startupWifi();
     pinMode(digitalPinToInterrupt(APDS_INT), INPUT);
@@ -182,5 +188,9 @@ void loop()
     }
 
     drawvalor(getJSONdata(Pantalla));
+  }
+  else
+  {
+    dnsServer.processNextRequest();
   }
 }

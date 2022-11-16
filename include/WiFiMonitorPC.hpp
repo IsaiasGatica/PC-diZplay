@@ -34,6 +34,10 @@ NTPClient timeClient(ntpUDP, "pool.ntp.org");
 String Nan = "--";
 int reconnect = 0;
 
+const byte DNS_PORT = 53;
+IPAddress apIP(192, 168, 1, 1);
+DNSServer dnsServer;
+
 void startupWifi()
 {
 
@@ -70,10 +74,11 @@ void startupWifi()
 
         reconnect = reconnect + 1;
 
-        if (reconnect == 50)
+        if (reconnect == 15)
         {
             Serial.println("No se pudo conectar");
             defaultWifi();
+            ESP.restart();
         }
     }
 
@@ -89,11 +94,10 @@ void startAP()
 {
 
     WiFi.mode(WIFI_AP);
-    while (!WiFi.softAP(ssid_AP))
-    {
-        Serial.print(".");
-        delay(500);
-    }
+    WiFi.softAPConfig(apIP, apIP, IPAddress(255, 255, 255, 0));
+    WiFi.softAP("Pc diZplay");
+    dnsServer.setTTL(300);
+    dnsServer.start(DNS_PORT, "Pcdizplay.com", apIP);
 
     Serial.print("Iniciado AP ");
     Serial.println(ssid_AP);

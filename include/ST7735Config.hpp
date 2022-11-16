@@ -85,6 +85,16 @@ void drawvalor(String valor)
   }
 }
 
+void Pantallasinformativas(const char *text)
+{
+
+  tft.fillScreen(TFT_BLACK);
+  tft.setFreeFont(&Orbitron_Medium_27);
+  tft.setTextColor(TFT_WHITE, TFT_BLACK);
+  tft.setTextSize(1);
+  tft.drawString(text, 10, 25);
+}
+
 void CambioPantalla(uint8_t Pantalla)
 {
   switch (Pantalla)
