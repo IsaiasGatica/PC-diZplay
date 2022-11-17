@@ -7,24 +7,21 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <meta name="description" content="Colorlib Templates" />
-    <meta name="author" content="Colorlib" />
-    <meta name="keywords" content="Colorlib Templates" />
+    <meta name="description" content="PC diZplay" />
+    <meta name="author" content="Dimensión Z" />
+    <meta name="keywords" content="Monitor PC" />
 
     <!-- Title Page-->
-    <title>Au Register Forms by Colorlib</title>
+    <title>PC diZplay</title>
 
     <!-- Main CSS-->
-    <link href="assets/main.min.css" rel="stylesheet" media="all" />
+    <link href="assets/style.css" rel="stylesheet" media="all" />
   </head>
 
   <body>
     <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
       <div class="wrapper wrapper--w790">
         <div class="card card-5">
-          <div class="card-heading">
-            <h2 class="title">Configuraciones iniciales</h2>
-          </div>
           <div class="card-body">
             <form method="POST" name="" action="/">
               <div class="form-row">
@@ -37,6 +34,7 @@
                       id="new_red"
                       name="new_red"
                       placeholder="Ingrese su red WiFi"
+                      required
                     />
                   </div>
                 </div>
@@ -50,37 +48,12 @@
                       type="password"
                       name="new_pass"
                       placeholder="Ingrese su contraseña WiFi"
+                      required
                     />
                   </div>
                 </div>
               </div>
-              <div class="form-row">
-                <div class="name">Red</div>
-                <div class="value">
-                  <div class="input-group">
-                    <input
-                      class="input--style-5"
-                      type="text"
-                      name="conf_red"
-                      placeholder="Confirme su red WiFi"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="form-row" id="new_contraseña">
-                <div class="name">Contraseña</div>
-                <div class="value">
-                  <div class="input-group">
-                    <input
-                      class="input--style-5"
-                      type="password"
-                      name="conf_pass"
-                      id="new_contraseña"
-                      placeholder="Confirme su contraseña WiFi"
-                    />
-                  </div>
-                </div>
-              </div>
+
               <div class="form-row">
                 <div class="name">URL</div>
                 <div class="value">
@@ -89,15 +62,16 @@
                       class="input--style-5"
                       type="text"
                       name="URL_LHM"
-                      placeholder="URL provista por LibreHardwareMonitor"
+                      placeholder="Ejemplo: 192.168.1.36:8085"
+                      required
                     />
                   </div>
                 </div>
               </div>
 
               <div>
-                <button class="btn btn--radius-2 btn--red" type="submit">
-                  Register
+                <button class="btn btn--radius-2 verdecyber" type="submit">
+                  Enviar
                 </button>
               </div>
             </form>

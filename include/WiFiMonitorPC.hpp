@@ -25,7 +25,7 @@
 
 */
 
-const char *url = "http://arduinojson.org/example.json";
+
 const char *hostname = "Hardware Monitor";
 
 WiFiUDP ntpUDP;
@@ -42,6 +42,7 @@ void startupWifi()
 {
     ssid = readSPIFSS("/red.txt");
     password = readSPIFSS("/pass.txt");
+    url = readSPIFSS("/url.txt");
 
     Serial.println("Credenciales");
     Serial.println(ssid);
@@ -101,7 +102,7 @@ String getJSONdata(uint8_t Pantalla)
     HTTPClient http;
 
     http.useHTTP10(true);
-    http.begin(client, "http://192.168.1.36:8085/data.json");
+    http.begin(client, "http://" + url + "/data.json");
     http.GET();
 
     StaticJsonDocument<144> filter;
