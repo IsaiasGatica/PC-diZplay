@@ -42,12 +42,9 @@
 #include "Functions.hpp"
 #include "ST7735Config.hpp"
 #include "APDSConfig.hpp"
-#include "image.h"
-#include "image2.h"
-#include "image3.h"
+#include "Eye.h"
 #include "WiFiMonitorPC.hpp"
 #include "WebServer.hpp"
-
 
 void IRAM_ATTR interruptRoutine()
 {
@@ -68,6 +65,7 @@ void setup()
   }
 
   startupST7735();
+  
 
   if (Modowifi())
   {

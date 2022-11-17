@@ -25,7 +25,6 @@
 
 */
 
-
 const char *hostname = "Hardware Monitor";
 
 WiFiUDP ntpUDP;
@@ -53,19 +52,23 @@ void startupWifi()
 
     while (WiFi.status() != WL_CONNECTED)
     {
-        delay(500);
-        tft.pushImage(0, 0, 160, 80, image);
-        delay(500);
 
-        tft.pushImage(0, 0, 160, 80, image2);
-        delay(100);
+        for (int i = 0; i < 19; i++)
 
-        tft.pushImage(0, 0, 160, 80, image3);
-        delay(10);
+        {
+            delay(40);
+            tft.pushImage(0, 0, animation_width, animation_height, Eye[i]);
+        }
+        for (int i = 18; i > 0; i--)
+
+        {
+            delay(40);
+            tft.pushImage(0, 0, animation_width, animation_height, Eye[i]);
+        }
 
         reconnect = reconnect + 1;
 
-        if (reconnect == 15)
+        if (reconnect == 10)
         {
             Serial.println("No se pudo conectar");
             defaultWifi();
