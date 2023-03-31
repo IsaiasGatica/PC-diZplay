@@ -56,7 +56,7 @@ void setup()
 
   EEPROM.begin(520);
   Serial.begin(115200);
-  //defaultWifi(); // Para forzar modo AP si ya tengo las credenciales correctas.
+  // defaultWifi(); // Para forzar modo AP si ya tengo las credenciales correctas.
 
   if (!SPIFFS.begin())
   {
@@ -65,7 +65,6 @@ void setup()
   }
 
   startupST7735();
-  
 
   if (Modowifi())
   {
@@ -80,6 +79,7 @@ void setup()
 
     startupAPDS();
     startupWifi();
+
     pinMode(digitalPinToInterrupt(APDS_INT), INPUT);
     attachInterrupt(digitalPinToInterrupt(APDS_INT), interruptRoutine, FALLING);
   }

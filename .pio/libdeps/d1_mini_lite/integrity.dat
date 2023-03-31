@@ -1,5 +1,4 @@
-ottowinter/ESPAsyncWebServer-esphome @ ^2.1.0
-C:\Users\Isaia\Desktop\APDS9960Gesture.zip
-arduino-libraries/NTPClient@^3.2.1
 bblanchon/ArduinoJson@^6.19.4
+arduino-libraries/NTPClient@^3.2.1
 bodmer/TFT_eSPI@^2.4.76
+ottowinter/ESPAsyncWebServer-esphome @ ^2.1.0
