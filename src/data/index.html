@@ -3,85 +3,80 @@
   <head>
     <!-- Required meta tags-->
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta name="description" content="PC diZplay" />
-    <meta name="author" content="Dimensión Z" />
-    <meta name="keywords" content="Monitor PC" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Title Page-->
     <title>PC diZplay</title>
 
     <!-- Main CSS-->
-    <link href="assets/style.css" rel="stylesheet" media="all" />
+    <link href="assets/bootstrap.min.css" rel="stylesheet" media="all" />
   </head>
 
-  <body>
-    <div class="container">
-      <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
-        <div class="wrapper wrapper--w790">
-          <div class="card card-5">
+  <body style="background: linear-gradient(to right, #9400d3, #ba55d3)">
+    <div class="p-5 mb-2 container">
+      <form method="POST" name="" action="/">
+        <div class="d-flex justify-content-center align-items-center">
+          <div class="card text-white bg-dark mb-3" style="width: 25em">
+            <img
+              src="banner.png"
+              class="card-img-top mx-auto d-block align-self-center"
+              style="width: 250px; height: 50px"
+            />
             <div class="card-body">
-              <form method="POST" name="" action="/">
-                <div class="form-row">
-                  <div class="name">Red</div>
-                  <div class="value">
-                    <div class="input-group">
-                      <input
-                        class="input--style-5"
-                        type="text"
-                        id="new_red"
-                        name="new_red"
-                        placeholder="Ingrese su red WiFi"
-                        required
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div class="form-row">
-                  <div class="name">Contraseña</div>
-                  <div class="value">
-                    <div class="input-group">
-                      <input
-                        class="input--style-5"
-                        type="password"
-                        name="new_pass"
-                        placeholder="Ingrese su contraseña WiFi"
-                        required
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-row">
-                  <div class="name">URL</div>
-                  <div class="value">
-                    <div class="input-group">
-                      <input
-                        class="input--style-5"
-                        type="text"
-                        name="URL_LHM"
-                        placeholder="Ejemplo: 192.168.1.36:8085"
-                        required
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div>
-                  <button class="btn btn--radius-2 verdecyber" type="submit">
-                    Enviar
-                  </button>
-                </div>
-              </form>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label"
+                  >Red WiFi</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="new_red"
+                  name="new_red"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label"
+                  >Contraseña</label
+                >
+                <input
+                  type="password"
+                  class="form-control"
+                  name="new_pass"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label"
+                  >HM Port</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  name="URL_LHM"
+                  placeholder="192.168.1.40:8085"
+                  required
+                />
+              </div>
+              <br />
+              <div class="mb-3 d-flex justify-content-end">
+                <button type="submit" class="btn btn-custom ml-auto">
+                  Aceptar
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   </body>
-  <!-- This templates was made by Colorlib (https://colorlib.com) -->
+  <style>
+    .btn-custom {
+      background-color: #fd03f7; /* Código hexadecimal del color fucsia */
+      color: #fff; /* Color del texto del botón */
+      font-size: 16px;
+      font-weight: bold;
+    }
+  </style>
 </html>
-<!-- end document-->
