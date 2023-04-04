@@ -1,5 +1,14 @@
 /*
 
+
+  04/04/2023
+  Se implementa una función de restart a modo AP si la conexión con Libre Hardware
+  Monitor no se puede concretar. La misma captura los intervalos de tiempo que se obtienen al
+  no poder conectarse. Si luego de 3 errores de reconexión, el tiempo obtenido esta dentro de este
+  intervalo se resetea el ESP32 a modo defaulWifi. No se implementó únicamente con contador ya que estos
+  errores pueden darse de forma aleatoria durante todo el tiempo de uso y aún asi lograr reconectarse.
+  En resumen se busca la situación de obtener errores consecutivos (el tiempo del intervalo se obtuvo empíricamente)
+
   31/10/2022
   Se agregó un switch-case que se encarga de retorar el valor de data PC
   correspondiente segun la pantalla del menu.
@@ -32,6 +41,9 @@ NTPClient timeClient(ntpUDP, "pool.ntp.org");
 
 String Nan = "--";
 int reconnect = 0;
+int CountError = 0;
+unsigned long tiempo1 = 0;
+unsigned long tiempo2 = 0;
 
 const byte DNS_PORT = 53;
 IPAddress apIP(192, 168, 1, 1);
@@ -72,7 +84,6 @@ void startupWifi()
         {
             Serial.println("No se pudo conectar");
             defaultWifi();
-            ESP.restart();
         }
     }
 
@@ -119,6 +130,13 @@ String getJSONdata(uint8_t Pantalla)
     {
         Serial.print(F("deserializeJson() failed: "));
         Serial.println(error.f_str());
+        CountError++;
+        tiempo2 = millis() - tiempo2;
+        Serial.println(tiempo2);
+        if ((CountError > 3) && (tiempo2 < 60000))
+        {
+            defaultWifi();
+        }
     }
 
     http.end();

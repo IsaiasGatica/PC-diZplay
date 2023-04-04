@@ -59,6 +59,7 @@ void defaultWifi()
 
     EEPROM.write(250, 0);
     EEPROM.commit();
+    ESP.restart();
 }
 
 void writeSPIFSS(String path, String credencial)
@@ -71,8 +72,6 @@ void writeSPIFSS(String path, String credencial)
     Serial.println("====== Escribiendo en el archivo SPIFFS =========");
     // write 10 strings to file
     f.print(credencial);
-
-    
 }
 
 String readSPIFSS(String path)

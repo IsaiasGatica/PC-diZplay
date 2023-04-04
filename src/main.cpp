@@ -1,5 +1,10 @@
 /*
 
+  04/04/2023
+  Se implementa una función de restart a modo AP si la conexión con Libre Hardware
+  Monitor no se puede concretar. Esto es útil cuando la IP cambia, pero limita la funcionalidad a
+  no poder usarse solo como reloj.
+
 
   28/10/2022
   Funcionando con una implementacion inicial del filter JSON.
@@ -184,4 +189,5 @@ void loop()
   {
     dnsServer.processNextRequest();
   }
+  reconnect = 0;
 }
