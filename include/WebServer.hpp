@@ -7,7 +7,7 @@ void initServer()
 
     // server.serveStatic("/assets/style.css", SPIFFS, "/assets/style.css").setDefaultFile("/style.css").setCacheControl("max-age=600");
 
-    server.serveStatic("/banner.png", SPIFFS, "/banner.png").setDefaultFile("/banner.png").setCacheControl("max-age=600");
+    // server.serveStatic("/banner.png", SPIFFS, "/banner.png").setDefaultFile("/banner.png").setCacheControl("max-age=600");
 
     server.on("/assets/bootstrap.min.css", HTTP_GET, [](AsyncWebServerRequest *request)
               {
@@ -15,6 +15,12 @@ void initServer()
         response->addHeader("Content-Encoding","gzip");
         response->addHeader("Cache-Control","max-age=86400"); // 1 día
         request->send(response); });
+    // server.on("/assets/jquery.min.js", HTTP_GET, [](AsyncWebServerRequest *request)
+    //           {
+    //     AsyncWebServerResponse* response = request->beginResponse(SPIFFS, "/assets/jquery.min.js.gz", "application/javascript");
+    //     response->addHeader("Content-Encoding","gzip");
+    //     response->addHeader("Cache-Control","max-age=86400"); // 1 día
+    //     request->send(response); });
 
     server.on("/", HTTP_GET, [](AsyncWebServerRequest *request)
               { request->send(SPIFFS, "/index.html"); });

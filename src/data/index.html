@@ -11,18 +11,19 @@
 
     <!-- Main CSS-->
     <link href="assets/bootstrap.min.css" rel="stylesheet" media="all" />
+    <script src="assets/jquery.min.js"></script>
   </head>
 
   <body style="background: linear-gradient(to right, #9400d3, #ba55d3)">
-    <div class="p-5 mb-2 container">
+    <div class="container">
       <form method="POST" name="" action="/">
         <div class="d-flex justify-content-center align-items-center">
           <div class="card text-white bg-dark mb-3" style="width: 25em">
-            <img
-              src="banner.png"
-              class="card-img-top mx-auto d-block align-self-center"
-              style="width: 250px; height: 50px"
-            />
+            <div class="d-flex justify-content-center align-items-center mt-3">
+              <div class="ball">
+                <div class="iris"></div>
+              </div>
+            </div>
             <div class="card-body">
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label"
@@ -78,5 +79,127 @@
       font-size: 16px;
       font-weight: bold;
     }
+    body {
+      background-color: #f5b7b1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      position: relative;
+    }
+
+    .ball {
+      overflow: hidden;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      position: relative;
+      background-color: white;
+      box-shadow: inset -5px -5px 5px rgba(0, 0, 0, 0.07);
+      animation: bounceball alternate infinite 400ms 40ms ease-in-out;
+    }
+    .iris {
+      width: 40%;
+      height: 40%;
+      left: 30%;
+      top: 30%;
+      border-radius: 50%;
+      background-color: #229954;
+      position: absolute;
+    }
+    .iris:before {
+      content: "";
+      position: absolute;
+      width: 35%;
+      height: 35%;
+      border-radius: 50%;
+      top: 30%;
+      left: 30%;
+      background-color: black;
+    }
+
+    .iris:after {
+      content: "";
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      top: 22%;
+      left: 20%;
+      background-color: rgba(255, 255, 255, 0.43);
+    }
+
+    @keyframes bounceball {
+      to {
+        transform: scaleX(1.03) scaleY(0.97);
+      }
+    }
+    .shadow {
+      position: absolute;
+      width: 160px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: rgba(0, 0, 0, 0.09);
+      top: 190px;
+      left: 14px;
+      animation: bounceball alternate infinite 400ms 40ms ease-in-out;
+    }
+    .card {
+      border-radius: 2em 2em 2em 2em;
+    }
   </style>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var midWidth = Math.floor(window.innerWidth / 2);
+      var midHeight = 100;
+      var mousePos = {
+        x: midWidth,
+        y: midHeight,
+      };
+      document.addEventListener("mousemove", function (event) {
+        mousePos.x = event.pageX;
+        mousePos.y = event.pageY;
+        var transX = mousePos.x - midWidth;
+        var transY = mousePos.y - midHeight;
+        var skewX = 0;
+        if (transX > -30 && transX < 30 && transY < 0) {
+          skewX = transX / 2;
+        } else if (transX > -30 && transX < 30 && transY >= 0) {
+          skewX = -(transX / 2);
+        } else if (transX > 30) {
+          skewX = -(transY / 2);
+        } else if (transX < -30) {
+          skewX = transY / 2;
+        }
+        if (transX >= 30) {
+          transX = 30;
+        } else if (transX <= -30) {
+          transX = -30;
+        }
+        if (transY >= 30) {
+          transY = 30;
+        } else if (transY <= -30) {
+          transY = -30;
+        }
+
+        if (skewX >= 15) {
+          skewX = 15;
+        } else if (skewX <= -15) {
+          skewX = -15;
+        }
+        document.querySelector(".iris").style.transform =
+          "translateX(" +
+          transX +
+          "px) translateY(" +
+          transY +
+          "px) skewX(" +
+          skewX +
+          "deg) skewY(2deg)";
+      });
+    });
+  </script>
 </html>
